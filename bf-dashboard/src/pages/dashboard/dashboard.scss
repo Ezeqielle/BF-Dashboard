@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.home{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    padding-top: 3%;
+    .box{
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid $soft-bg;
+        background-color: rgba(173, 216, 230, 0.445);
+    }
+    .box1{
+        grid-column: span 1;
+        grid-row: span 4;
+    }
+    .graph{
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+    .box5{
+        grid-column: span 3;
+        grid-row: span 2;
+    }
+}
