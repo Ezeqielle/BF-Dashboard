@@ -6,7 +6,6 @@ import {
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import Addingdashboard from "./pages/addingdashboard/Addingdashboard";
-import Home from "./pages/home/Home";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import Menu from "./components/menu/Menu";
@@ -38,7 +37,7 @@ function App() {
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: "/dashboard",
           element: <Dashboard />
         },
         {
@@ -46,10 +45,6 @@ function App() {
           element: <Addingdashboard />
         },
       ]
-    },
-    {
-      path: "/home",
-      element: <Home />,
     }
   ]);
 

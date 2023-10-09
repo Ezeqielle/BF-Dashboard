@@ -1,16 +1,12 @@
-import Overview from "../../components/overview/Overview"
 import"./addingdashbard.scss"
 
 const Addingdashboard = () => {
   return (
-    <div className="addingdashbard">
-      <div className="box box1">
-        <Overview />
-      </div>
-      <div className="box box2 graph">Box2</div>
-      <div className="box box3 graph">Box3</div>
-      <div className="box box4 graph">Box4</div>
-      <div className="box box5">Box5</div>
+    <div className="home">
+      <div className="box box1">Box11</div>
+      <div className="box box2">Box2</div>
+      <div className="box box3">Box3</div>
+      <div className="box box4">Box4</div>
     </div>
   )
 }

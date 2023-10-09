@@ -6,13 +6,13 @@ export const menu = [
         {
           id: 1,
           title: "Dashboard",
-          url: "/",
+          url: "/dashboard",
           icon: "chart.svg",
         },
         {
           id: 2,
           title: "new dashboard",
-          url: "/users/1",
+          url: "/addingdashboard",
           icon: "note.svg",
         },
       ],
