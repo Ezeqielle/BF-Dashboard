@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard/Dashboard";
-import Addingdashboard from "./pages/addingdashboard/Addingdashboard";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import Menu from "./components/menu/Menu";
@@ -13,7 +12,6 @@ import Menu from "./components/menu/Menu";
 import "./styles/global.scss"
 
 function App() {
-
   const Layout =() => {
     return (
       <div className="main">
@@ -33,17 +31,17 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/dashboard",
       element: <Layout />,
       children: [
         {
           path: "/dashboard",
           element: <Dashboard />
         },
-        {
+        {/*
           path: "/addingdashboard",
           element: <Addingdashboard />
-        },
+      */},
       ]
     }
   ]);
