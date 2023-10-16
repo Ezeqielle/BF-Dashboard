@@ -1,6 +1,28 @@
 import"./dashboard.scss"
+import React, { useEffect, useState } from 'react';
 
-const Dashboard = () => {
+const apiUrl = 'http://localhost:5174/api/images';
+
+const Dashboard: React.FC = () => {
+  const [selectedFolder, setSelectedFolder] = useState<string>('');
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (selectedFolder) {
+      fetch(`${apiUrl}/${selectedFolder}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setImages(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching images:', error);
+        });
+    }
+  }, [selectedFolder]);
+
+  const handleFolderSelect = (folder: string) => {
+    setSelectedFolder(folder);
+  };
   return (
     <div className="home">
       <div className="box box1">Box1</div>

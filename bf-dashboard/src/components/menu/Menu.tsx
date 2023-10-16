@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 const apiUrl = 'http://localhost:5174/api/folders'; // Update the URL if needed
 
-const Menu: React.FC = () => {
+const Menu: React.FC<{ setSelectedFolder: (folder: string) => void }> = ({ setSelectedFolder }) => {
   const [folders, setFolders] = useState<string[]>([]);
 
   useEffect(() => {
-    // Fetch folder names from the local server
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -18,18 +17,26 @@ const Menu: React.FC = () => {
       });
   }, []);
 
+  const handleFolderSelect = (folder: string) => {
+    setSelectedFolder(folder); // Call the function from the parent component
+  };
+
   return (
-    <select>
-      {folders.map((folderName, index) => (
-        <option key={index} value={folderName}>
-          {folderName}
-        </option>
-      ))}
-    </select>
+    <div>
+      <select onChange={(e) => handleFolderSelect(e.target.value)}>
+        <option value="">Select a folder</option>
+        {folders.map((folder, index) => (
+          <option key={index} value={folder}>
+            {folder}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
 export default Menu;
+
 
 {/*
 <div className="menu">

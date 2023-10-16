@@ -8,8 +8,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import Menu from "./components/menu/Menu";
+import Gallery from "./components/gallery/Gallery";
 
-import "./styles/global.scss"
+import "./styles/global.scss";
 
 function App() {
   const Layout =() => {
@@ -18,7 +19,7 @@ function App() {
         <Navbar />
         <div className="container">
           <div className="menuContainer">
-            <Menu />
+            {/*<Menu />*/}
           </div>
           <div className="contentContainer">
             <Outlet />
@@ -42,6 +43,10 @@ function App() {
           path: "/addingdashboard",
           element: <Addingdashboard />
       */},
+        {/*
+          path: "/gallery",
+          element: <Gallery />
+    */},
       ]
     }
   ]);
