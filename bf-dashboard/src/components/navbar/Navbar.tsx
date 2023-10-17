@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import "./navbar.scss"
 
 const Navbar = () => {
@@ -6,6 +7,9 @@ const Navbar = () => {
       <div className="logo">
         <img src="/busi.svg" alt=""/>
         <span>Security Repport</span>
+        <Link to="/newView">
+          <button>Create New View</button>
+        </Link>
       </div>
     </div>
   )

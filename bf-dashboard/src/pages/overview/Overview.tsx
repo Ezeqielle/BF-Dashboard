@@ -10,7 +10,7 @@ const Overview = () => {
   return (
     <div className="home">
       <Dropdown setSelectedFolder={setSelectedFolder} />
-      <div className="box box1">
+      <div className="box">
         <Gallery selectedFolder={selectedFolder} />
       </div>
     </div>

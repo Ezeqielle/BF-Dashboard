@@ -2,6 +2,7 @@ import"./newView.scss"
 
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { Link } from "react-router-dom";
 
 const NewView = () => {
   const onDrop = useCallback((acceptedFiles: Array<File>) => {
@@ -24,7 +25,7 @@ const NewView = () => {
 
     formData.append("file", acceptedFiles[0])
 
-    const results = await fetch("http://localhost:3000/api/upload", {
+    const results = await fetch("http://localhost:5173/api/upload", {
       method: "POST",
       body: formData
     }).then(res => res.json())
@@ -35,6 +36,9 @@ const NewView = () => {
   return (
     <form onSubmit={handleOnSubmit}>
       <button>Submit</button>
+      <Link to='/overview'>
+        <button>cancel</button>
+      </Link>
       <div className="home">
         <div className="box box1" {...getRootProps()}>
           Box11

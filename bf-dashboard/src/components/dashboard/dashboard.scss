@@ -1,0 +1,23 @@
+/* CSS for locking the size of images and displaying them 2 by 2 without cropping */
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .image-card {
+    width: calc(50% - 20px); /* 50% minus margin for 2 by 2 layout */
+    height: auto;
+    margin: 10px;
+    overflow: hidden;
+    box-sizing: border-box; /* Include padding and border in the width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .image-card img {
+    width: 850px; /* Set the width to 850 pixels */
+    height: 360px; /* Set the height to 360 pixels */
+    object-fit: cover;
+  }
+  

@@ -3,25 +3,20 @@ import {
   RouterProvider,
   Outlet
 } from "react-router-dom";
-import { useState } from "react";
+
+import "./styles/global.scss";
 
 import Overview from "./pages/overview/Overview";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import Dropdown from "./components/dropdown/Dropdown";
-
-import "./styles/global.scss";
+import NewView from "./pages/newView/NewView";
 
 function App() {
   const Layout =() => {
-    const [selectedFolder, setSelectedFolder] = useState<string>('');
     return (
       <div className="main">
         <Navbar />
         <div className="container">
-          <div className="menuContainer">
-            {/*<Dropdown setSelectedFolder={setSelectedFolder} /> {/* Pass setSelectedFolder to Menu */}
-          </div>
           <div className="contentContainer">
             <Outlet />
           </div>
@@ -40,12 +35,12 @@ function App() {
           path: "/overview",
           element: <Overview />
         },
-        {/*
-          path: "/addingdashboard",
-          element: <Addingdashboard />
-      */},
-      ]
-    }
+      ],
+    },
+    {
+      path: "/newView",
+      element: <NewView />
+    }   
   ]);
 
   return (
