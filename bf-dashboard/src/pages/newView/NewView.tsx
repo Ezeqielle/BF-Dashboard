@@ -1,9 +1,9 @@
-import"./addingdashbard.scss"
+import"./newView.scss"
 
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-const Addingdashboard = () => {
+const NewView = () => {
   const onDrop = useCallback((acceptedFiles: Array<File>) => {
     const file = new FileReader();
     file.onload = () => {
@@ -97,4 +97,4 @@ const Addingdashboard = () => {
   )
 }
 
-export default Addingdashboard
+export default NewView

@@ -1,9 +1,9 @@
-import "./menu.scss"
+import "./dropdown.scss"
 import React, { useEffect, useState } from 'react';
 
 const apiUrl = 'http://localhost:5174/api/folders'; // Update the URL if needed
 
-const Menu: React.FC<{ setSelectedFolder: (folder: string) => void }> = ({ setSelectedFolder }) => {
+const Dropdown: React.FC<{ setSelectedFolder: (folder: string) => void }> = ({ setSelectedFolder }) => {
   const [folders, setFolders] = useState<string[]>([]);
 
   useEffect(() => {
@@ -35,21 +35,4 @@ const Menu: React.FC<{ setSelectedFolder: (folder: string) => void }> = ({ setSe
   );
 };
 
-export default Menu;
-
-
-{/*
-<div className="menu">
-  {menu.map((item) => (
-    <div className="item" key={item.id}>
-      <span className="title">{item.title}</span>
-      {item.listItems.map((listItem) => (
-        <Link to={listItem.url} className="listItem" key={listItem.id}>
-          <img src={listItem.icon} alt="" />
-          <span className="listItemTitle">{listItem.title}</span>
-        </Link>
-      ))}
-    </div>
-  ))}
-</div>
-*/}
+export default Dropdown;

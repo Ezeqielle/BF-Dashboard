@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Menu from '../menu/Menu'; // Import your Menu component
+import Dropdown from '../dropdown/Dropdown'; // Import your Menu component
 import Gallery from '../gallery/Gallery'; // Import your Gallery component
 
 const App: React.FC = () => {
@@ -7,7 +7,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Menu setSelectedFolder = {setSelectedFolder} />
+      <Dropdown setSelectedFolder = {setSelectedFolder} />
       <Gallery selectedFolder = {selectedFolder} />
     </div>
   );

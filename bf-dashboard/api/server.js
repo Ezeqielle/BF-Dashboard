@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import cors from 'cors';
@@ -6,13 +6,9 @@ import cors from 'cors';
 const __dirname = path.resolve();
 const app = express();
 const port = 5174; // Choose a port for your server
-const folderPath = path.join(__dirname, "upload");
+const folderPath = path.join(__dirname, "images");
 
-app.use(cors(
-  {
-    origin: 'http://localhost:5173'
-  }
-));
+app.use(cors());
 
 app.get('/api/folders', (req, res) => {
   fs.readdir(folderPath, (err, files) => {
@@ -48,6 +44,30 @@ app.get('/api/images/:folderName', (req, res) => {
   });
 });
 
+// Add a route to serve a single image from a specific folder
+app.get('/api/images/:folderName/:imageName', (req, res) => {
+  const folderName = req.params.folderName;
+  const imageName = req.params.imageName;
+  const imagePath = path.join(folderPath, folderName, imageName);
+
+  fs.stat(imagePath, (err, stat) => {
+    if (err || !stat.isFile()) {
+      console.error('Error reading image:', err);
+      res.status(404).send('Image Not Found');
+    } else {
+      // Set the appropriate content type based on the file extension
+      const fileExtension = path.extname(imagePath).toLowerCase();
+      const contentType = {
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.png': 'image/png',
+      }[fileExtension] || 'application/octet-stream';
+
+      res.setHeader('Content-Type', contentType);
+      fs.createReadStream(imagePath).pipe(res);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

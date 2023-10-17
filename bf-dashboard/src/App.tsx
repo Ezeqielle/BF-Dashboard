@@ -3,23 +3,24 @@ import {
   RouterProvider,
   Outlet
 } from "react-router-dom";
+import { useState } from "react";
 
-import Dashboard from "./pages/dashboard/Dashboard";
+import Overview from "./pages/overview/Overview";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import Menu from "./components/menu/Menu";
-import Gallery from "./components/gallery/Gallery";
+import Dropdown from "./components/dropdown/Dropdown";
 
 import "./styles/global.scss";
 
 function App() {
   const Layout =() => {
+    const [selectedFolder, setSelectedFolder] = useState<string>('');
     return (
       <div className="main">
         <Navbar />
         <div className="container">
           <div className="menuContainer">
-            {/*<Menu />*/}
+            {/*<Dropdown setSelectedFolder={setSelectedFolder} /> {/* Pass setSelectedFolder to Menu */}
           </div>
           <div className="contentContainer">
             <Outlet />
@@ -32,21 +33,17 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/dashboard",
+      path: "/overview",
       element: <Layout />,
       children: [
         {
-          path: "/dashboard",
-          element: <Dashboard />
+          path: "/overview",
+          element: <Overview />
         },
         {/*
           path: "/addingdashboard",
           element: <Addingdashboard />
       */},
-        {/*
-          path: "/gallery",
-          element: <Gallery />
-    */},
       ]
     }
   ]);
