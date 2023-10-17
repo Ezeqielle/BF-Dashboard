@@ -34,8 +34,8 @@ function App() {
         {
           path: "/overview",
           element: <Overview />
-        },
-      ],
+        }
+      ]
     },
     {
       path: "/newView",
