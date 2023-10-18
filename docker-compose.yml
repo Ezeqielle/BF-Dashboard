@@ -1,0 +1,25 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:5173"
+    networks:
+      - bf-dashboard-net
+
+  api:
+    build:
+      context: ./backend/api
+    ports:
+      - "5174:5174"
+    volumes:
+      - bf-dashboard-images:/app/images
+    networks:
+      - bf-dashboard-net
+
+networks:
+  bf-dashboard-net:
+
+volumes:
+  bf-dashboard-images:
