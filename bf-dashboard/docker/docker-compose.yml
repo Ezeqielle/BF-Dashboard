@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.react
+    ports:
+      - "5173:80"
+    networks:
+      - my-network
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.api
+    ports:
+      - "5174:5174"
+    networks:
+      - my-network
+
+networks:
+  my-network:

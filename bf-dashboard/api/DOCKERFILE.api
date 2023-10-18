@@ -1,0 +1,18 @@
+# Stage 1: Build the Node.js Express Server
+FROM node:14 AS server
+WORKDIR /app
+COPY server/package*.json ./server/
+WORKDIR /app/server
+RUN npm install
+COPY . ./
+
+# Stage 2: Create the Final Image
+FROM node:14
+WORKDIR /app
+COPY --from=server /app /app
+
+# Expose the port your API will listen on
+EXPOSE 5174
+
+# Start your Node.js Express server
+CMD ["node", "server.js"]
