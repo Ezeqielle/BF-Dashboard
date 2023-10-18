@@ -9,7 +9,7 @@ const Overview = () => {
   const [selectedFolder, setSelectedFolder] = useState<string>('');
   return (
     <div className="home">
-      <Dropdown setSelectedFolder={setSelectedFolder} />
+      <Dropdown setSelectedFolder={setSelectedFolder} /> 
       <div className="box">
         <Gallery selectedFolder={selectedFolder} />
       </div>
