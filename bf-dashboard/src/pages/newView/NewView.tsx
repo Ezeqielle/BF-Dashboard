@@ -1,104 +1,79 @@
-import"./newView.scss"
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Link } from "react-router-dom";
+function NewView() {
+  const [images, setImages] = useState<File[]>([]);
+  const [folderPath, setFolderPath] = useState<string>('');
+  const allowedExtensions = ['.jpg', '.jpeg', '.png'];
 
-const NewView = () => {
-  const onDrop = useCallback((acceptedFiles: Array<File>) => {
-    const file = new FileReader();
-    file.onload = () => {
-      setPreview(file.result)
+  const handleImageDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const files = Array.from(e.dataTransfer.files);
+    setImages(files);
+  };
+
+  const handleUpload = () => {
+    if (images.length === 0) {
+      alert('Please add some images first.');
+      return;
     }
-    file.readAsDataURL(acceptedFiles[0])
-  }
-  , [])
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+    // Create a folder with the current date on the server
+    axios.post('http://localhost:5174/api/createFolder')
+      .then((response) => {
+        setFolderPath(response.data.folderPath);
 
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null)
+        // Upload images to the server
+        const formData = new FormData();
+        images.forEach((file, index) => {
+          formData.append('images', file);
+        });
 
-  async function handleOnSubmit(e: React.SyntheticEvent) {
-    e.preventDefault()
-    if ( typeof acceptedFiles[0] === "undefined") return
-    const formData = new FormData()
+        axios.post(`http://localhost:5174/api/uploadImages/${folderPath}`, formData)
+          .then((response) => {
+            console.log('Images uploaded:', response.data);
+          })
+          .catch((error) => {
+            console.error('Error uploading images:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error creating folder:', error);
+      });
+  };
 
-    formData.append("file", acceptedFiles[0])
-
-    const results = await fetch("http://localhost:5173/api/upload", {
-      method: "POST",
-      body: formData
-    }).then(res => res.json())
-
-    console.log(results)
-  }
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
 
   return (
-    <form onSubmit={handleOnSubmit}>
-      <button>Submit</button>
+    <div>
+      <h1>Image Upload</h1>
       <Link to='/overview'>
-        <button>cancel</button>
+        <button>Go back</button>
       </Link>
-      <div className="home">
-        <div className="box box1" {...getRootProps()}>
-          Box11
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
-          }
-          {preview && 
-            <p className="imagesDrag">
-              <img src={preview.toString()} alt="preview" />
-            </p>
-          }
-        </div>
-        <div className="box box2"{...getRootProps()}>
-          Box12
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
-          }
-          {preview && 
-            <p className="imagesDrag">
-              <img src={preview.toString()} alt="preview" />
-            </p>
-          }
-        </div>
-        <div className="box box3"{...getRootProps()}>
-          Box13
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
-          }
-          {preview && 
-            <p className="imagesDrag">
-              <img src={preview.toString()} alt="preview" />
-            </p>
-          }
-        </div>
-        <div className="box box4" {...getRootProps()}>
-          Box14
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
-          }
-          {preview && 
-            <p className="imagesDrag">
-              <img src={preview.toString()} alt="preview" />
-            </p>
-          }
-        </div>
+      <div
+        onDrop={handleImageDrop}
+        onDragOver={handleDragOver}
+        style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center' }}
+      >
+        <p>Drag and drop images here.</p>
+        {images.length > 0 && (
+          <div>
+            <h2>Uploaded Images:</h2>
+            <ul>
+              {images.map((file, index) => (
+                <li key={index}>{file.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <button onClick={handleUpload}>Upload Images</button>
       </div>
-    </form>
-  )
+    </div>
+  );
 }
 
-export default NewView
+export default NewView;
