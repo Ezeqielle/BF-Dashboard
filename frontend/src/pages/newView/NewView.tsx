@@ -7,6 +7,8 @@ function NewView() {
   const [folderPath, setFolderPath] = useState<string>('');
   const allowedExtensions = ['.jpg', '.jpeg', '.png'];
 
+  const ip = 'localhost';
+
   const handleImageDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
@@ -21,7 +23,7 @@ function NewView() {
     }
 
     // Create a folder with the current date on the server
-    axios.post('http://localhost:5174/api/createFolder')
+    axios.post(`http://${ip}:5174/api/createFolder`)
       .then((response) => {
         setFolderPath(response.data.folderPath);
 
@@ -31,7 +33,7 @@ function NewView() {
           formData.append('images', file);
         });
 
-        axios.post(`http://localhost:5174/api/uploadImages/${folderPath}`, formData)
+        axios.post(`http://${ip}:5174/api/uploadImages/${setFolderPath}`, formData)
           .then((response) => {
             console.log('Images uploaded:', response.data);
           })
@@ -42,7 +44,7 @@ function NewView() {
       .catch((error) => {
         console.error('Error creating folder:', error);
       });
-  };
+  };  
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
