@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function NewView() {
   const [images, setImages] = useState<File[]>([]);
   const [folderPath, setFolderPath] = useState<string>('');
-  const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+  //const allowedExtensions = ['.jpg', '.jpeg', '.png'];
 
   const handleImageDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ function NewView() {
 
         // Upload images to the server
         const formData = new FormData();
-        images.forEach((file, index) => {
+        images.forEach(file => {
           formData.append('images', file);
         });
 
